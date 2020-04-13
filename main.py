@@ -1,10 +1,20 @@
 from classes.game import  person, bcolors
-magic = [{'name' : 'Fire', 'cost' : 10 , 'dmg' : 100},
-        {'name' : 'Thunder', 'cost' : 10 , 'dmg' : 124},
-        {'name' : 'Blizzard', 'cost' : 10 , 'dmg' : 100}]
+from classes.magic import spell
 
-player = person(460, 65, 60, 34, magic)
-enemy = person(1200, 65, 45, 25, magic)
+#some black magic
+fire = spell('Fire', 10, 100, 'black')
+thunder = spell('Thunder', 10, 100, 'black')
+blizzard = spell('Blizzard', 10, 100, 'black')
+meteor= spell('Meteor', 20, 200, 'black')
+quake = spell('Quake', 14, 140, 'black')
+
+#some white magic
+cure = spell('Cure', 12, 120, 'white')
+cura = spell('Cura', 18, 200, 'white')
+
+#Instantiate people
+player = person(460, 65, 60, 34, [fire, thunder, blizzard, meteor, cure, cura])
+enemy = person(1200, 65, 45, 25, [])
 
 Running = True
 
@@ -25,17 +35,20 @@ while Running:
     elif choice == 1:
         player.choose_magic()
         magic_choice = int(input('choose magic:')) - 1
-        magic_dmg = player.generate_spell_damage(magic_choice)
-        spell_name = player.get_spell_name(magic_choice)
-        spell_cost = player.get_spell_cost(magic_choice)
 
-        if spell_cost > player.get_mp():
+        # magic_dmg = player.generate_spell_damage(magic_choice)
+        # spell_name = player.get_spell_name(magic_choice)
+        # spell_cost = player.get_spell_cost(magic_choice)
+
+        magic_dmg = player.magic[magic_choice].generate_damage()
+
+        if player.magic[magic_choice].get_cost() > player.get_mp():
             print(bcolors.FAIL + '\nnot enough MP\n' , bcolors.ENDC)
             continue
 
-        player.reduce_mp(spell_cost)
+        player.reduce_mp(player.magic[magic_choice].get_cost())
         enemy.take_damage(magic_dmg)
-        print(bcolors.OKBLUE + '\n' + spell_name + ' deals ' + str(magic_dmg) + ' points of damage ' + bcolors.ENDC)
+        print(bcolors.OKBLUE + '\n' + player.magic[magic_choice].get_name() + ' deals ' + str(magic_dmg) + ' points of damage ' + bcolors.ENDC)
 
     enemy_choice = 1
     enemy_damage = enemy.generate_damage()
