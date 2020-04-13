@@ -15,3 +15,6 @@ class spell:
 
     def get_cost(self):
         return  self.cost
+
+    def get_type(self):
+        return  self.type
