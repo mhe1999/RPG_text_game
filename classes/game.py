@@ -72,7 +72,7 @@ class person:
     def choose_item(self):
         print('\n' + bcolors.OKGREEN + bcolors.BOLD +'    Items:' + bcolors.ENDC)
         for i in range(len(self.items)):
-            print('       ' ,i+1 , ':' , self.items[i]['item'].get_name() , ' : ' , self.items[i]['item'].get_descrption(), self.items[i]['quantity'])
+            print('       ' ,i+1 , ':' , self.items[i]['item'].get_name() , ' : ' , self.items[i]['item'].get_descrption(), '*', self.items[i]['quantity'])
 
 
 
