@@ -62,18 +62,31 @@ class person:
         for i in range(len(self.actions)):
             print('       ' ,i+1 , ':' , self.actions[i])
 
+
     def choose_magic(self):
         print('\n' + bcolors.OKBLUE + bcolors.BOLD +'    Magics:' + bcolors.ENDC)
         for i in range(len(self.magic)):
             print('       ' ,i+1 , ':' , self.magic[i].get_name() , '(cost :' , self.magic[i].get_cost(), ')')
+
 
     def choose_item(self):
         print('\n' + bcolors.OKGREEN + bcolors.BOLD +'    Items:' + bcolors.ENDC)
         for i in range(len(self.items)):
             print('       ' ,i+1 , ':' , self.items[i]['item'].get_name() , ' : ' , self.items[i]['item'].get_descrption(), self.items[i]['quantity'])
 
-            
 
+
+    def choose_target(self, enemies):
+        i = 1
+
+        print("\n" + bcolors.FAIL + bcolors.BOLD + "    TARGET:" + bcolors.ENDC)
+        for enemy in enemies:
+            if enemy.get_hp() != 0:
+                print("        " + str(i) + ".", enemy.name)
+                i += 1
+        choice = int(input("    Choose target:")) - 1
+        print('\n\n\n')
+        return choice
 
     def get_stat(self):
         hpbar_len = int(self.hp / self.maxhp * 25)
